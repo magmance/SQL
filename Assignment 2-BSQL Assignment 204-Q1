@@ -1,0 +1,37 @@
+-- Create a table called Movie to store information about movies.
+CREATE TABLE Movie(
+  MovieName nvarchar(255) NOT NULL,
+  Duration float NOT NULL CHECK (duration >= 1),
+  Genre int NOT NULL CHECK (genre BETWEEN 1 AND 8),
+  --(1: Action, 2: Adventure, 3: Comedy, 4: Crime (gangster), 5: Dramas, 6: Horror, 7: Musical/dance, 8: War)
+  Director nvarchar(255) NOT NULL,
+  AmountOfMoney float NOT NULL,
+  Comments nvarchar(1000)
+  CONSTRAINT PK_Movie PRIMARY KEY (MovieName, Director)
+  );
+  
+-- Creat a table called Actor to store information about actors.
+CREATE TABLE Actor(
+  ActorName nvarchar(255) NOT NULL,
+  Age int NOT NULL CHECK (Age BETWEEN 10 and 80),
+  AverageMovieSalary float NOT NULL,
+  Nationality varchar(100) NOT NULL,
+  Comments nvarchar(1000)
+  CONSTRAINT PK_Actor PRIMARY KEY (ActorName, Age, Nationality)
+  );
+  
+--Create a final table called ActedIn to store information about which movies certain actors have acted in
+CREATE TABLE ActedIn(
+  MovieName nvarchar(255) NOT NULL,
+  Director nvarchar(255) NOT NULL,
+  ActorName nvarchar(255) NOT NULL,
+  Age int NOT NULL CHECK (Age BETWEEN 10 and 80),
+  Nationality varchar(100) NOT NULL,
+  TimeIn date NOT NULL,
+  TimeOut date NOT NULL,
+  AmountOfActorSalary float NOT NULL,
+  Comments nvarchar(1000)
+  CONSTRAINT PK_ActedIn PRIMARY KEY (MovieName, Director, ActorName, Age, Nationality),
+  CONSTRAINT FK_Movie FOREIGN KEY (MovieName, Director) REFERENCES Movie (MovieName, Director),
+  CONSTRAINT FK_Actor FOREIGN KEY (ActorName, Age, Nationality) REFERENCES Actor(ActorName, Age, Nationality)
+  );
