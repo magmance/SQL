@@ -1,4 +1,4 @@
-Q1:
+-- Q1:
 -- Create a table called Movie to store information about movies.
 CREATE TABLE Movie(
   MovieID int NOT NULL,
@@ -43,15 +43,15 @@ CREATE TABLE ActedIn(
   CONSTRAINT FK_Actor FOREIGN KEY (ActorID, ActorName, Age, Nationality) REFERENCES Actor (ActorID, ActorName, Age, Nationality),
   );
 
-Q2:
+-- Q2:
 -- Populate your tables with some data using the INSERT statement. Make sure you have at least 5 tuples per table
-INSERT INTO Movie (Movieid, MovieName, Duration, Genre, Director, AmountOfMoney, Comments, ImageLink)
+INSERT INTO Movie (Movieid, MovieName, Duration, Genre, Director, NumberOfActors, AmountOfMoney, Comments, ImageLink)
 VALUES 
-  (1, 'Avengers: Endgame', 3.02, 1, 'Anthony Russo, Joe Russo', 2.798, 'The highest-grossing film of all time', 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fvi.wikipedia.org%2Fwiki%2FAvengers%3A_H%25E1%25BB%2593i_k%25E1%25BA%25BFt&psig=AOvVaw2O-fIgPbI39LxnJ1wNXkn-&ust=1683569172277000&source=images&cd=vfe&ved=0CBEQjRxqFwoTCNi5zIXm4_4CFQAAAAAdAAAAABAE'),
-  (2, 'Titanic', 3.14, 5, 'James Cameron', 2.194, 'A tragic love story', 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fvi.wikipedia.org%2Fwiki%2FTitanic_%2528phim_1997%2529&psig=AOvVaw2ERqESEaXwMD9FbWgeKab6&ust=1683569232515000&source=images&cd=vfe&ved=0CBEQjRxqFwoTCLjRtqLm4_4CFQAAAAAdAAAAABAI'),
-  (3, 'The Shawshank Redemption', 2.22, 5, 'Frank Darabont', 0.283, 'A story of hope and redemption', 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fvnexpress.net%2Fgiai-tri%2Fphim%2Fthu-vien-phim%2Fthe-shawshank-redemption-186&psig=AOvVaw11K6U0-Q4jBumDoxSuzGoY&ust=1683569263311000&source=images&cd=vfe&ved=0CBEQjRxqFwoTCPiSibHm4_4CFQAAAAAdAAAAABAE'),
-  (4, 'The Godfather', 2.55, 4, 'Francis Ford Coppola', 0.246, 'A classic crime drama', 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fvnexpress.net%2Fgiai-tri%2Fphim%2Fthu-vien-phim%2Fthe-godfather-128&psig=AOvVaw38J8Hv-MOZUVpKMtFjfJKR&ust=1683569299737000&source=images&cd=vfe&ved=0CBEQjRxqFwoTCIi4t8Lm4_4CFQAAAAAdAAAAABAE'),
-  (5, 'Jurassic Park', 2.07, 2, 'Steven Spielberg', 1.029, 'A thrilling adventure', 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FJurassic_Park&psig=AOvVaw0mHjcDESAg1_FzK6_TGOOY&ust=1683569326928000&source=images&cd=vfe&ved=0CBEQjRxqFwoTCMiBt8_m4_4CFQAAAAAdAAAAABAE');
+  (1, 'Avengers: Endgame', 3.02, 1, 'Anthony Russo, Joe Russo', 10, 2.798, 'The highest-grossing film of all time', 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fvi.wikipedia.org%2Fwiki%2FAvengers%3A_H%25E1%25BB%2593i_k%25E1%25BA%25BFt&psig=AOvVaw2O-fIgPbI39LxnJ1wNXkn-&ust=1683569172277000&source=images&cd=vfe&ved=0CBEQjRxqFwoTCNi5zIXm4_4CFQAAAAAdAAAAABAE'),
+  (2, 'Titanic', 3.14, 5, 'James Cameron', 2, 2.194, 'A tragic love story', 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fvi.wikipedia.org%2Fwiki%2FTitanic_%2528phim_1997%2529&psig=AOvVaw2ERqESEaXwMD9FbWgeKab6&ust=1683569232515000&source=images&cd=vfe&ved=0CBEQjRxqFwoTCLjRtqLm4_4CFQAAAAAdAAAAABAI'),
+  (3, 'The Shawshank Redemption', 2.22, 5, 'Frank Darabont', 3, 0.283, 'A story of hope and redemption', 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fvnexpress.net%2Fgiai-tri%2Fphim%2Fthu-vien-phim%2Fthe-shawshank-redemption-186&psig=AOvVaw11K6U0-Q4jBumDoxSuzGoY&ust=1683569263311000&source=images&cd=vfe&ved=0CBEQjRxqFwoTCPiSibHm4_4CFQAAAAAdAAAAABAE'),
+  (4, 'The Godfather', 2.55, 4, 'Francis Ford Coppola', 2, 0.246, 'A classic crime drama', 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fvnexpress.net%2Fgiai-tri%2Fphim%2Fthu-vien-phim%2Fthe-godfather-128&psig=AOvVaw38J8Hv-MOZUVpKMtFjfJKR&ust=1683569299737000&source=images&cd=vfe&ved=0CBEQjRxqFwoTCIi4t8Lm4_4CFQAAAAAdAAAAABAE'),
+  (5, 'Jurassic Park', 2.07, 2, 'Steven Spielberg', 3, 1.029, 'A thrilling adventure', 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FJurassic_Park&psig=AOvVaw0mHjcDESAg1_FzK6_TGOOY&ust=1683569326928000&source=images&cd=vfe&ved=0CBEQjRxqFwoTCMiBt8_m4_4CFQAAAAAdAAAAABAE');
 INSERT INTO Actor (ActorID, ActorName, Age, AverageMovieSalary, Nationality)
 VALUES 
   (1, 'Robert Downey Jr.', 56, 15.0, 'American'),
@@ -59,13 +59,12 @@ VALUES
   (3, 'Leonardo DiCaprio', 47, 20.0, 'American'),
   (4, 'Morgan Freeman', 84, 8.0, 'American'),
   (5, 'Marlon Brando', 80, 12.0, 'American');
-
--- You accidentally mistyped one of the actors' names. Fix your typo by using an UPDATE statement
+  
 UPDATE Actor
 SET ActorName = 'Tom Holland'
 WHERE ActorID = 2;
 
-Q3:
+-- Q3:
 -- Retrieve all the data in the Actor table for actors that are older than 50
 SELECT *from Actor WHERE age > 50;
 
