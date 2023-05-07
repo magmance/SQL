@@ -1,3 +1,4 @@
+Q1:
 -- Create a table called Movie to store information about movies.
 CREATE TABLE Movie(
   MovieID int NOT NULL,
@@ -24,7 +25,7 @@ CREATE TABLE Actor(
   CONSTRAINT PK_Actor PRIMARY KEY (ActorID, ActorName, Age, Nationality)
   );
   
---Create a final table called ActedIn to store information about which movies certain actors have acted in
+-- Create a final table called ActedIn to store information about which movies certain actors have acted in
 CREATE TABLE ActedIn(
   MovieID int NOT NULL,
   MovieName nvarchar(255) NOT NULL,
@@ -42,6 +43,7 @@ CREATE TABLE ActedIn(
   CONSTRAINT FK_Actor FOREIGN KEY (ActorID, ActorName, Age, Nationality) REFERENCES Actor (ActorID, ActorName, Age, Nationality),
   );
 
+Q2:
 -- Populate your tables with some data using the INSERT statement. Make sure you have at least 5 tuples per table
 INSERT INTO Movie (Movieid, MovieName, Duration, Genre, Director, AmountOfMoney, Comments, ImageLink)
 VALUES 
@@ -57,18 +59,20 @@ VALUES
   (3, 'Leonardo DiCaprio', 47, 20.0, 'American'),
   (4, 'Morgan Freeman', 84, 8.0, 'American'),
   (5, 'Marlon Brando', 80, 12.0, 'American');
-  
+
+-- You accidentally mistyped one of the actors' names. Fix your typo by using an UPDATE statement
 UPDATE Actor
 SET ActorName = 'Tom Holland'
 WHERE ActorID = 2;
 
---Retrieve all the data in the Actor table for actors that are older than 50
+Q3:
+-- Retrieve all the data in the Actor table for actors that are older than 50
 SELECT *from Actor WHERE age > 50;
 
---Retrieve all actor names and average salaries from ACTOR and sort the results by average salary
+-- Retrieve all actor names and average salaries from ACTOR and sort the results by average salary
 SELECT actorname, averagemoviesalary FROM Actor ORDER BY averagemoviesalary;
 
---Using an actor name from your table, write a query to retrieve the names of all the movies that the actor has acted in.
+-- Using an actor name from your table, write a query to retrieve the names of all the movies that the actor has acted in.
 SELECT m.moviename, a.actorname FROM Movie m
 JOIN ActedIn i on m.movieid = i.MovieID
 JOIN Actor a ON i.ActorID = a.ActorID
