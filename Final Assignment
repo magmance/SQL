@@ -1,0 +1,125 @@
+-- SMST  database  contains 4 tables: Students, Marks, Subjects, Teachers. 
+CREATE TABLE Students(
+  student_id int PRIMARY key NOT NULL,
+  first_name nvarchar(20) NOT NULL,
+  last_name nvarchar(20) NOT NULL,
+  day_of_birth date NOT NULL,
+  address varchar(500) NOT NULL
+  );
+  
+CREATE TABLE Teacher (
+  teacher_id int PRIMARY KEY NOT NULL,
+  first_name nvarchar(20) NOT NULL,
+  last_name nvarchar(20) NOT NULL,
+  address varchar(500) NOT NULL,
+  date_of_birth date NOT NULL,
+  exp int  NOT NULL CHECK (exp > 1)
+  );
+  
+CREATE TABLE Subject(
+  subject_id int NOT NULL,
+  title varchar(50) NOT NULL,
+  teacher_id int NOT NULL,
+  CONSTRAINT PK_Subject PRIMARY KEy (subject_id, teacher_id),
+  CONSTRAINT FK_Teacher FOREIGN key (teacher_id) REFERENCES Teacher(teacher_id)
+  );
+
+CREATE TABLE Marks(
+  mark_id int NOT NULL,
+  student_id int NOT NULL,
+  subject_id int NOT NULL,
+  teacher_id int NOT NULL,
+  dateinput date NOT NULL,
+  mark float NOT NULL CHECK(mark BETWEEN 1 and 10)
+    CONSTRAINT PK_Mark PRIMARY KEY (mark_id, student_id, subject_id, teacher_id),
+    CONSTRAINT FK_Students FOREIGN key (student_id) REFERENCES Students(student_id),
+    CONSTRAINT FK_Subject FOREIGN key (subject_id, teacher_id) REFERENCES Subject(subject_id, teacher_id)
+  );
+  
+-- Write query to add 10 records for each table
+INSERT INTO Students (student_id, first_name, last_name, day_of_birth, address)
+VALUES
+  (0001, 'Mai', 'Cường', '1994-02-26', 'District 7, HCMC'),
+  (0002, 'Huỳnh', 'Trung', '1997-03-05', 'District 7, HCMC'),
+  (0003, 'Nguyễn', 'Nhận', '1995-01-01', 'Thu Duc City, HCMC'),
+  (0004, 'Phạm', 'Quyết', '1991-10-14', 'Binh Tan District, HCMC'),
+  (0005, 'Dương', 'Thiên', '2003-01-26', 'Thu Duc City, HCMC'),
+  (0006, 'Nguyễn', 'Thiện', '1992-10-12', 'Thuan An City, Binh Duong Province'),
+  (0007, 'Lê', 'Bình', '2003-12-06', 'Thu Duc City, HCMC'),
+  (0008, 'Nguyễn', 'Anh', '2003-01-01', 'Thu Duc City, HCMC'),
+  (0009, 'Lê', 'Phong', '1999-06-09', 'District 7, HCMC'),
+  (0010, 'Nguyễn', 'Hùng', '2002-04-09', 'Thu Duc City, HCMC');
+INSERT INTO Teacher (teacher_id, first_name, last_name, address, date_of_birth, exp)
+VALUES
+  (01, 'Trần', 'Nga', 'Thu Duc City, HCMC','1984-05-08', 10),
+  (02, 'Trần', 'Bình', 'Thu Duc City, HCMC','1981-08-28', 15),
+  (03, 'Phạm', 'Sang', 'District 4, HCMC', '1979-03-13', 15),
+  (04, 'Dương', 'Tuấn', 'District 7, HCMC', '1987-01-13', 10),
+  (05, 'Hà', 'Thảo', 'Binh Thanh District, HCMC', '1991-05-05', 8), 
+  (06, 'Huỳnh', 'Khanh', 'Binh Thanh District', '1983-07-23', 10),
+  (07, 'Huỳnh', 'Vy', 'District 3, HCMC', '1989-06-28', 4),
+  (08, 'Võ', 'Công', 'District 10, HCMC', '1986-04-11', 6),
+  (09, 'Nguyễn', 'Như', 'District 11, HCMC', '1992-05-02', 3),
+  (10, 'Nguyễn', 'Thuỷ', 'Thu Duc City, HCMC', '1990-05-24', 6); 
+INSERT INTO Subject (subject_id, title, teacher_id)
+VALUES
+  (001, 'Cau truc Du lieu và Giai Thuat', 01),
+  (002, 'Phan tich mach dien tu', 02),
+  (003, 'Kien truc may tinh', 04),
+  (004, 'Dai so tuyen tinh', 03),
+  (005, 'Quy hoạch va Phan tich thuc nghiem', 05),
+  (006, 'An toan dien', 06),
+  (007, 'Do hoa may tinh trong khong gian hai chieu', 07),
+  (008, 'Khai thac du lieu', 08),
+  (009, 'Tam ly hoc ung dung', 09),
+  (010, 'Mang may tinh', 10);
+INSERT INTO Marks ( mark_id, student_id, subject_id, teacher_id, dateinput, mark)
+VALUES
+  (1, 0001, 001, 01, '2023-05-08', 7.6),
+  (2, 0002, 002, 02, '2023-05-08', 7.7),
+  (3, 0003, 003, 04, '2023-05-08', 6.8),
+  (4, 0004, 004, 03, '2023-05-08', 5.6),
+  (5, 0005, 005, 05, '2023-05-08', 6.2),
+  (6, 0006, 006, 06, '2023-05-08', 8.7),
+  (7, 0007, 007, 07, '2023-05-08', 8.2),
+  (8, 0008, 008, 08, '2023-05-08', 8.9),
+  (9, 0009, 009, 09, '2023-05-08', 7.2),
+  (10, 0010, 010, 10, '2023-05-08', 7.8);
+
+-- Add new column FullName into Teachers table. This is a computed column base on Firstname and last name attribute
+ALTER TABLE Teacher
+add full_name as (first_name + ' ' + last_name);
+
+-- Query to display the list of subjects with their titles and the names of the teachers who teach them
+SELECT s.title, t.full_name from Subject s
+INNER JOIN Teacher t ON s.teacher_id = t.teacher_id
+ORDER BY t.full_name;
+
+-- Query to display the average mark for each subject
+SELECT s.title, AVG(m.mark) as AverageMark
+from Subject s
+INNER JOIN Marks m ON s.subject_id = m.subject_id
+GROUP BY s.title;
+
+-- Query to display the list of students with their full names and the average mark they have received for each subject, only including subjects where mark > 5
+SELECT s.student_id, s.first_name, s.last_name, AVG(m.mark) AS AverageMark 
+FROM Students s 
+INNER JOIN Marks m ON s.student_id = m.student_id
+INNER JOIN Subject j ON m.subject_id = j.subject_id
+WHERE m.mark > 5.0
+GROUP BY s.student_id, s.first_name, s.last_name;
+
+-- Query to display the list of students who have received a mark higher than 8 in at least one subject, with their full names and addresses 
+SELECT s.student_id, s.first_name, s.last_name, s.address 
+FROM Students s 
+INNER JOIN Marks m ON s.student_id = m.student_id 
+WHERE m.mark > 8.0
+GROUP BY s.student_id, s.first_name, s.last_name, s.address;
+
+-- Query to display the list of subjects with their titles and the number of students who have received a mark higher than 5 for each subject
+SELECT s.title , COUNT(DISTINCT m.student_id) AS NumStudents 
+FROM Subject s 
+INNER JOIN Marks m ON s.subject_id = m.subject_id 
+WHERE m.mark > 5 
+GROUP BY s.title;
+
